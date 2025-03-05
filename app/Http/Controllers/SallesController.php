@@ -21,7 +21,9 @@ class SallesController extends Controller
      */
     public function create()
     {
-        return view('addSalle');
+        $salle = new Salle();
+
+        return view('addSalle', compact('salle'));
     }
 
     /**
@@ -37,7 +39,7 @@ class SallesController extends Controller
         $salle->libelle = $request->input('libelle');
         $salle->save();
 
-        return to_route('listSalles')->with('status', 'Salle created successfully');
+        return to_route('salle.index')->with('status', 'Salle créer avec succès');
     }
 
     /**
@@ -53,9 +55,9 @@ class SallesController extends Controller
      */
     public function edit(string $id)
     {
-        $salles = Salle::find($id);
+        $salle = Salle::find($id);
 
-        return view('editSalle', compact('salles'));
+        return view('addSalle', compact('salle'));
     }
 
     /**
@@ -71,7 +73,7 @@ class SallesController extends Controller
         $salle->libelle = $request->input('libelle');
         $salle->save();
 
-        return to_route('listSalles')->with('status', 'Salle updated successfully');
+        return to_route('salle.index')->with('status', 'Salle modifié avec succès');
     }
 
     /**
@@ -81,6 +83,6 @@ class SallesController extends Controller
     {
         Salle::destroy($id);
 
-        return to_route('listSalles')->with('status', 'Salle deleted successfully');
+        return to_route('salle.index')->with('status', 'Salle supprimé avec succès');
     }
 }

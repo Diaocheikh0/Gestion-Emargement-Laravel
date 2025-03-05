@@ -23,8 +23,9 @@ class CoursController extends Controller
      */
     public function create()
     {
+        $cour = new Cours();
         $salles = Salle::all();
-        return view('addCours', compact('salles'));
+        return view('addCours', compact('salles', 'cour'));
     }
 
     /**
@@ -63,7 +64,7 @@ class CoursController extends Controller
             'jour' => $request->jour,
         ]);
 
-        return to_route('listCours')->with('status', 'Cours ajouté avec succès.');
+        return to_route('cours.index')->with('status', 'Cours ajouté avec succès.');
     }
 
     /**
@@ -79,9 +80,10 @@ class CoursController extends Controller
      */
     public function edit(string $id)
     {
-        $cours = Cours::findOrFail($id);
+        $cour = Cours::findOrFail($id);
         $salles = Salle::all();
-        return view('editCours', compact('cours', 'salles'));
+
+        return view('addCours', compact('cour', 'salles'));
     }
 
     /**
@@ -122,7 +124,7 @@ class CoursController extends Controller
             'jour' => $request->jour,
         ]);
 
-        return to_route('listCours')->with('status', 'Cours mis à jour avec succès.');
+        return to_route('cours.index')->with('status', 'Cours mis à jour avec succès.');
     }
 
     /**
@@ -138,7 +140,7 @@ class CoursController extends Controller
         }
 
         $cour->delete();
-        return to_route('listCours')->with('status', 'Cours supprimé avec succès.');
+        return to_route('cours.index')->with('status', 'Cours supprimé avec succès.');
     }
 
 }

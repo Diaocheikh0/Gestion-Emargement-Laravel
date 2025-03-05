@@ -301,7 +301,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('listUsers')}}" class="nav-link">
+                                    <a href="{{route('users.index')}}" class="nav-link">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p>Liste des Utilisateurs</p>
                                     </a>
@@ -309,7 +309,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('register')}}" class="nav-link">
+                                    <a href="{{route('register.create')}}" class="nav-link">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p>Ajout Utilisateur</p>
                                     </a>
@@ -329,7 +329,7 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('listSalles')}}" class="nav-link">
+                                    <a href="{{route('salle.index')}}" class="nav-link">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p>Liste des Salles</p>
                                     </a>
@@ -337,7 +337,7 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('addSalle')}}" class="nav-link">
+                                    <a href="{{route('salle.create')}}" class="nav-link">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p>Ajout Salle</p>
                                     </a>
@@ -356,13 +356,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{route('listCours')}}" class="nav-link">
+                                    <a href="{{route('cours.index')}}" class="nav-link">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p>Lite des Cours</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('addCours')}}" class="nav-link">
+                                    <a href="{{route('cours.create')}}" class="nav-link">
                                         <i class="nav-icon bi bi-circle"></i>
                                         <p>Ajout Cour</p>
                                     </a>
@@ -385,6 +385,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @if(auth()->user()->role == 'administrateur' || auth()->user()->role == 'gestionnaire')
+                            <li class="nav-item">
+                                <a href="{{route('AllHistoriqueEmargements')}}" class="nav-link">
+                                    <i class="nav-icon bi bi-circle"></i>
+                                    <p>Historiques</p>
+                                </a>
+                            </li>
+                            @endif
                             @if(auth()->user()->role == 'professeur')
                             <li class="nav-item">
                                 <a href="{{route('emargements.create')}}" class="nav-link">
@@ -392,13 +400,13 @@
                                     <p>Emarger</p>
                                 </a>
                             </li>
-                            @endif
                             <li class="nav-item">
                                 <a href="{{route('emargements.index')}}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>Historiques</p>
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </li>
 

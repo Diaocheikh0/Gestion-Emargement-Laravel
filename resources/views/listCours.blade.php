@@ -10,7 +10,7 @@
             </button>
         </div>
     @endif
-
+    <h2 class="text-center mb-4">Liste des Couurs</h2>
     <table class="table table-striped table-hover text-center mt-4">
         <thead>
         <tr class="table-primary">
@@ -34,9 +34,9 @@
                 <td>{{$c->jour}}</td>
                 <td>
                     <div class="btn-group gap-2" role="group">
-                        <a href="{{ route('editCours', ['id' => $c->id]) }}" class="btn btn-primary btn-sm"><i
+                        <a href="{{ route('cours.edit', [$c->id]) }}" class="btn btn-primary btn-sm"><i
                                 class="fas fa-edit"></i> Edit</a>
-                        <form action="{{ route('deleteCours', ['id' => $c->id]) }}" method="post"
+                        <form action="{{ route('cours.destroy', [$c->id]) }}" method="post"
                               class="d-inline-block">
                             @csrf
                             @method('delete')

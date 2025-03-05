@@ -17,4 +17,10 @@ class Cours extends Model
     {
         return $this->belongsToMany(User::class, 'cours_professeur', 'cours_id', 'prof_id');
     }
+
+    public function emargements()
+    {
+        return $this->hasMany(Emargement::class, 'cours_id');
+    }
+
 }

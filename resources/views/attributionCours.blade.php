@@ -3,7 +3,7 @@
 
     <div class="container">
         <div class="d-flex align-items-center justify-content-center">
-            <h2>Attribution des Cours aux Professeurs</h2>
+            <h2 class="text-center">Attribution des Cours aux Professeurs</h2>
         </div>
         @if(session('status'))
             <div class="alert alert-success">{{ session('status') }}</div>

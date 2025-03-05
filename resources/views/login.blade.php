@@ -55,7 +55,7 @@
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Connectez-vous pour commencer votre session</p>
+          <p class="login-box-msg text-center">Connectez-vous pour commencer votre session</p>
           <form action="{{url('/login')}}" method="post">
               @csrf
             <div class="input-group mb-3">

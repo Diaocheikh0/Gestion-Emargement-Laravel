@@ -12,7 +12,7 @@
     @endif
 
     <div class="container mt-5">
-        <h2 class="mb-4">Émargement du jour</h2>
+        <h2 class="text-center mb-4">Émargement du jour</h2>
 
         @foreach($coursDuJour as $cours)
             <form action="{{ route('emargements.store') }}" method="POST">

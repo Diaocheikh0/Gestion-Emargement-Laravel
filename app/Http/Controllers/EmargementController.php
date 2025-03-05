@@ -19,6 +19,12 @@ class EmargementController extends Controller
         return view('historiqueEmargements', compact('emargements'));
     }
 
+    public function index_2( ){
+        $allemargements = Emargement::all();
+
+        return view('AllhistoriqueEmargements', compact('allemargements'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */

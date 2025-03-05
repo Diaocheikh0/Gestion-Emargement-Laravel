@@ -10,7 +10,7 @@
             </button>
         </div>
     @endif
-
+    <h2 class="text-center mb-4">Liste des Salles</h2>
     <div class="table-responsive">
         <table class="table table-striped table-hover text-center mt-4">
             <thead>
@@ -27,10 +27,10 @@
                     <td>{{ $s->libelle }}</td>
                     <td class="text-nowrap">
                         <div class="btn-group" role="group">
-                            <a href="{{ route('editSalle', ['id' => $s->id]) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('salle.edit', [$s->id]) }}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <form action="{{ route('deleteSalle', ['id' => $s->id]) }}" method="post"
+                            <form action="{{ route('salle.destroy', [$s->id]) }}" method="post"
                                   class="d-inline-block">
                                 @csrf
                                 @method('delete')

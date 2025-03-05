@@ -21,7 +21,8 @@ class RegisterController extends Controller
      */
     public function create()
     {
-        return view('register');
+        $user = new User();
+        return view('register', compact('user'));
     }
 
     /**
@@ -43,7 +44,7 @@ class RegisterController extends Controller
         $user->role = $request->input('role');
         $user->save();
 
-        return to_route('listUsers')->with('status', 'User created successfully');
+        return to_route('users.index')->with('status', 'Utilisateur créer avec succès');
     }
 
     /**
@@ -59,9 +60,9 @@ class RegisterController extends Controller
      */
     public function edit(string $id)
     {
-        $users = User::find($id);
+        $user = User::find($id);
 
-        return view('editUser', compact('users'));
+        return view('register', compact('user'));
     }
 
     /**
@@ -80,7 +81,7 @@ class RegisterController extends Controller
         $user->email = $request->input('email');
         $user->role = $request->input('role');
         $user->save();
-        return to_route('listUsers')->with('status', 'User updated successfully');
+        return to_route('users.index')->with('status', 'Utilisateur modifié avec succès');
     }
 
     /**
@@ -90,6 +91,6 @@ class RegisterController extends Controller
     {
         User::destroy($id);
 
-        return to_route('listUsers');
+        return to_route('users.index')->with('status', 'Utilisateur supprimé avec succès');
     }
 }

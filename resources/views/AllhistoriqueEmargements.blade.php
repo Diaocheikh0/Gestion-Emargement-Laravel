@@ -10,22 +10,24 @@
             </button>
         </div>
     @endif
-    <h2 class="text-center mb-4">Historique de vos émargements</h2>
+    <h2 class="text-center">Historique des Emargements</h2>
     <table class="table table-striped table-hover text-center mt-4">
         <thead>
         <tr class="table-primary">
             <th>ID</th>
             <th>DATE</th>
             <th>STATUT</th>
+            <th>PROFESSEUR</th>
             <th>NOM COURS</th>
         </tr>
         </thead>
         <tbody>
-        @foreach($emargements as $e)
+        @foreach($allemargements as $e)
             <tr>
                 <td class="table-secondary">{{$e->id}}</td>
                 <td>{{$e->created_at}}</td>
                 <td>{{$e->statut}}</td>
+                <td>{{$e->professeur->name}}</td>
                 <td>{{$e->cours->nom}}</td>
             </tr>
         @endforeach

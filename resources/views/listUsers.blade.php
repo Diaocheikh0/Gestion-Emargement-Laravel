@@ -10,7 +10,7 @@
             </button>
         </div>
     @endif
-
+    <h2 class="text-center mb-4">Liste des Utilisateurs</h2>
     <table class="table table-striped table-hover text-center mt-4">
         <thead>
         <tr class="table-primary">
@@ -30,9 +30,9 @@
                 <td>{{$u->role}}</td>
                 <td>
                     <div class="btn-group gap-2" role="group">
-                        <a href="{{ route('editUser', ['id' => $u->id]) }}" class="btn btn-primary btn-sm"><i
+                        <a href="{{ route('register.edit', [$u->id]) }}" class="btn btn-primary btn-sm"><i
                                 class="fas fa-edit"></i> Edit</a>
-                        <form action="{{ route('deleteUser', ['id' => $u->id]) }}" method="post" class="d-inline-block">
+                        <form action="{{ route('register.destroy', [$u->id]) }}" method="post" class="d-inline-block">
                             @csrf
                             @method('delete')
                             <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</button>
