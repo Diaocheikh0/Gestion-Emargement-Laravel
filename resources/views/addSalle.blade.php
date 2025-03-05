@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 
@@ -14,7 +14,8 @@
                         <!-- Prénom et Nom -->
                         <div class="form-group">
                             <label for="name">Libellé</label>
-                            <input type="text" class="form-control" id="name" name="libelle" placeholder="Libellé" required>
+                            <input type="text" class="form-control" id="name" name="libelle" placeholder="Libellé"
+                                   required>
                         </div>
                         <br>
                         <!-- Bouton d'inscription -->

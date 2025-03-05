@@ -19,22 +19,12 @@ class CoursController extends Controller
     }
 
     /**
-     Pour recupérer le nom de la salle et l'afficher sur la liste des cours
-     */
-    public function salle()
-    {
-        return $this->belongsTo(Salle::class);
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $professeurs = User::where('role', 'professeur')->get();
         $salles = Salle::all();
-
-        return view('addCours', compact('professeurs', 'salles'));
+        return view('addCours', compact('salles'));
     }
 
     /**
@@ -48,12 +38,12 @@ class CoursController extends Controller
             'heure_debut' => 'required',
             'heure_fin' => 'required|after:heure_debut',
             'salle_id' => 'required|exists:salles,id',
-            'prof_id' => 'required|exists:users,id',
-            'jour' => 'required',
+            'jour' => 'required|in:Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche',
         ]);
 
-        // Vérification des conflits d’horaires
-        $conflit = Cours::where('prof_id', $request->prof_id)
+        // Vérification des conflits d’horaires pour la salle
+        $conflit = Cours::where('salle_id', $request->salle_id)
+            ->where('jour', $request->jour)
             ->where(function ($query) use ($request) {
                 $query->whereBetween('heure_debut', [$request->heure_debut, $request->heure_fin])
                     ->orWhereBetween('heure_fin', [$request->heure_debut, $request->heure_fin]);
@@ -61,20 +51,19 @@ class CoursController extends Controller
             ->exists();
 
         if ($conflit) {
-            return redirect()->back()->withErrors(['error' => 'Conflit d’horaire pour ce professeur.']);
+            return redirect()->back()->withErrors(['error' => 'Conflit d’horaire détecté pour cette salle et ce jour.']);
         }
 
-        $cour = new Cours();
-        $cour->nom = $request->input('nom');
-        $cour->description = $request->input('description');
-        $cour->heure_debut = $request->input('heure_debut');
-        $cour->heure_fin = $request->input('heure_fin');
-        $cour->salle_id = $request->input('salle_id');
-        $cour->prof_id = $request->input('prof_id');
-        $cour->jour = $request->input('jour');
-        $cour->save();
+        Cours::create([
+            'nom' => $request->nom,
+            'description' => $request->description,
+            'heure_debut' => $request->heure_debut,
+            'heure_fin' => $request->heure_fin,
+            'salle_id' => $request->salle_id,
+            'jour' => $request->jour,
+        ]);
 
-        return to_route('listCours')->with('status', 'Cours créé avec succès.');
+        return to_route('listCours')->with('status', 'Cours ajouté avec succès.');
     }
 
     /**
@@ -90,11 +79,9 @@ class CoursController extends Controller
      */
     public function edit(string $id)
     {
-        $professeurs = User::where('role', 'professeur')->get();
         $cours = Cours::findOrFail($id);
         $salles = Salle::all();
-
-        return view('editCours', compact('cours', 'salles', 'professeurs'));
+        return view('editCours', compact('cours', 'salles'));
     }
 
     /**
@@ -108,33 +95,32 @@ class CoursController extends Controller
             'heure_debut' => 'required',
             'heure_fin' => 'required|after:heure_debut',
             'salle_id' => 'required|exists:salles,id',
-            'prof_id' => 'required|exists:users,id',
-            'jour' => 'required',
+            'jour' => 'required|in:Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche',
         ]);
 
-        $cour = Cours::findOrFail($id);
+        $cours = Cours::findOrFail($id);
 
-        // Vérification des conflits d’horaires pour ce professeur
-        $conflit = Cours::where('prof_id', $request->prof_id)
-            ->where('id', '!=', $id) // Exclure le cours en cours de modification
+        $conflitSalle = Cours::where('salle_id', $request->salle_id)
+            ->where('jour', $request->jour)
+            ->where('id', '!=', $id)
             ->where(function ($query) use ($request) {
                 $query->whereBetween('heure_debut', [$request->heure_debut, $request->heure_fin])
                     ->orWhereBetween('heure_fin', [$request->heure_debut, $request->heure_fin]);
             })
             ->exists();
 
-        if ($conflit) {
-            return redirect()->back()->withErrors(['error' => 'Conflit d’horaire pour ce professeur.']);
+        if ($conflitSalle) {
+            return redirect()->back()->withErrors(['error' => 'Conflit d’horaire : cette salle est déjà occupée à cette heure et ce jour.']);
         }
 
-        $cour->nom = $request->input('nom');
-        $cour->description = $request->input('description');
-        $cour->heure_debut = $request->input('heure_debut');
-        $cour->heure_fin = $request->input('heure_fin');
-        $cour->salle_id = $request->input('salle_id');
-        $cour->prof_id = $request->input('prof_id');
-        $cour->jour = $request->input('jour');
-        $cour->save();
+        $cours->update([
+            'nom' => $request->nom,
+            'description' => $request->description,
+            'heure_debut' => $request->heure_debut,
+            'heure_fin' => $request->heure_fin,
+            'salle_id' => $request->salle_id,
+            'jour' => $request->jour,
+        ]);
 
         return to_route('listCours')->with('status', 'Cours mis à jour avec succès.');
     }
@@ -144,9 +130,15 @@ class CoursController extends Controller
      */
     public function destroy(string $id)
     {
-        Cours::destroy($id);
+        $cour = Cours::findOrFail($id);
 
-        return to_route('listCours')->with('status', 'Cour deleted successfully');
+        // Vérifier si le cours est lié à des émargements
+        if ($cour->emargements()->exists()) {
+            return redirect()->back()->withErrors(['error' => 'Impossible de supprimer ce cours, des présences y sont associées.']);
+        }
+
+        $cour->delete();
+        return to_route('listCours')->with('status', 'Cours supprimé avec succès.');
     }
 
 }

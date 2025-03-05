@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 @section('content')
 
     <div class="row justify-content-center">
@@ -12,7 +12,8 @@
 
                         <div class="form-group">
                             <label for="name">Libellé</label>
-                            <input type="text" class="form-control" id="libelle" name="libelle" value="{{ $salles->libelle }}" required>
+                            <input type="text" class="form-control" id="libelle" name="libelle"
+                                   value="{{ $salles->libelle }}" required>
                         </div>
                         <br>
 

@@ -290,81 +290,92 @@
                     role="menu"
                     data-accordion="false"
                 >
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-speedometer"></i>
-                            <p>
-                                Gestion des Utilisateurs
-                                <i class="nav-arrow bi bi-chevron-right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('listUsers')}}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>Liste des Utilisateurs</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('register')}}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>Ajout Utilisateur</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if(auth()->user()->role == 'administrateur')
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-speedometer"></i>
+                                <p>
+                                    Gestion des Utilisateurs
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('listUsers')}}" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Liste des Utilisateurs</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('register')}}" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Ajout Utilisateur</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-speedometer"></i>
-                            <p>
-                                Gestion des Salles
-                                <i class="nav-arrow bi bi-chevron-right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('listSalles')}}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>Liste des Salles</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('addSalle')}}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>Ajout Salle</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-box-seam-fill"></i>
-                            <p>
-                                Gestion des Cours
-                                <i class="nav-arrow bi bi-chevron-right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{route('listCours')}}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>Lite des Cours</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('addCours')}}" class="nav-link">
-                                    <i class="nav-icon bi bi-circle"></i>
-                                    <p>Ajout Cour</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if(auth()->user()->role == 'administrateur' || auth()->user()->role == 'gestionnaire')
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-speedometer"></i>
+                                <p>
+                                    Gestion des Salles
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('listSalles')}}" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Liste des Salles</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('addSalle')}}" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Ajout Salle</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
+                        @if(auth()->user()->role == 'administrateur' || auth()->user()->role == 'gestionnaire')
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-box-seam-fill"></i>
+                                <p>
+                                    Gestion des Cours
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('listCours')}}" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Lite des Cours</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('addCours')}}" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Ajout Cour</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('cours-professeurs.index')}}" class="nav-link">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Attribution Cours</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-box-seam-fill"></i>
@@ -374,20 +385,24 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @if(auth()->user()->role == 'professeur')
                             <li class="nav-item">
-                                <a href="../widgets/small-box.html" class="nav-link">
+                                <a href="{{route('emargements.create')}}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Enregistrement des Présences</p>
+                                    <p>Emarger</p>
                                 </a>
                             </li>
+                            @endif
                             <li class="nav-item">
-                                <a href="../widgets/info-box.html" class="nav-link">
+                                <a href="{{route('emargements.index')}}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
                                     <p>Historiques</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
+
+                        @if(auth()->user()->role == 'administrateur' || auth()->user()->role == 'gestionnaire')
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-tree-fill"></i>
@@ -417,6 +432,7 @@
                             </li>
                         </ul>
                     </li>
+                        @endif
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">

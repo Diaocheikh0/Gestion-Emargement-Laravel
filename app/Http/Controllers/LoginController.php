@@ -16,17 +16,26 @@ class LoginController extends Controller
         return view('login');
     }
 
-    public function dologin(LoginRequest $request){
+    public function dologin(LoginRequest $request)
+    {
         $credentials = $request->only('email', 'password');
 
-        if(Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended(route('listUsers'));
+
+            if (Auth::user()->role == 'admin') {
+                return to_route('listUsers');
+            } elseif (Auth::user()->role == 'gestionnaire') {
+                return to_route('listCours');
+            } elseif (Auth::user()->role == 'professeur') {
+                return to_route('emargements.create');
+            }
+
+            return redirect()->route('listUsers');
         }
 
-        return redirect()->intended(route('login'))->withErrors([
+        return redirect()->route('login')->withErrors([
             'email' => 'Email/Mot de passe invalide',
-
         ])->onlyInput('email');
     }
 }

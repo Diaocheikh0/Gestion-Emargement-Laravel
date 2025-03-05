@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CoursProfesseurController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
@@ -25,3 +26,10 @@ Route::post('/saveCours', [\App\Http\Controllers\CoursController::class, 'store'
 Route::delete('/deleteCours/{id}', [\App\Http\Controllers\CoursController::class, 'destroy'])->name('deleteCours');
 Route::get ('/editCours/{id}', [\App\Http\Controllers\CoursController::class, 'edit'])->name('editCours');
 Route::put('/updateCours/{id}', [\App\Http\Controllers\CoursController::class, 'update'])->name('updateCours');
+
+
+Route::resource('cours-professeurs', \App\Http\Controllers\CoursProfesseurController::class);
+Route::delete('cours-professeurs/{cours_id}/{prof_id}', [CoursProfesseurController::class, 'destroy'])->name('cours-professeurs.destroy');
+
+Route::resource('emargements', \App\Http\Controllers\EmargementController::class);
+

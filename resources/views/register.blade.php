@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 
@@ -14,19 +14,22 @@
                         <!-- Prénom et Nom -->
                         <div class="form-group">
                             <label for="name">Prénom et Nom</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Prénom et Nom" required>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Prénom et Nom"
+                                   required>
                         </div>
 
                         <!-- Email -->
                         <div class="form-group">
                             <label for="email">Adresse email</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                   required>
                         </div>
 
                         <!-- Mot de passe -->
                         <div class="form-group">
                             <label for="password">Mot de passe</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="Mot de passe" required>
                         </div>
 
                         <!-- Rôle -->

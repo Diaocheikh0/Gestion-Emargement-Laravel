@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 
@@ -13,38 +13,16 @@
                         <!-- Nom du cours -->
                         <div class="form-group">
                             <label for="nom">Nom du cours</label>
-                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom du cours" required>
+                            <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom du cours"
+                                   required>
                         </div>
                         <br>
 
                         <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" id="description" name="description" placeholder="Description du cours" required></textarea>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                        <label>Professeur :</label>
-                            <select name="prof_id" required class="form-control">
-                                @foreach($professeurs as $prof)
-                                    <option value="{{ $prof->id }}">{{ $prof->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                        <label>Jour :</label>
-                        <select name="jour" required class="form-control">
-                            <option value="Lundi">Lundi</option>
-                            <option value="Mardi">Mardi</option>
-                            <option value="Mercredi">Mercredi</option>
-                            <option value="Jeudi">Jeudi</option>
-                            <option value="Vendredi">Vendredi</option>
-                            <option value="Samedi">Samedi</option>
-                            <option value="Dimanche">Dimanche</option>
-                        </select>
+                            <textarea class="form-control" id="description" name="description"
+                                      placeholder="Description du cours" required></textarea>
                         </div>
                         <br>
 
@@ -74,6 +52,21 @@
                         </div>
                         <br>
 
+                        <div class="form-group">
+                            <label for="jour">Jour :</label>
+                            <select name="jour" id="jour" class="form-control" required>
+                                <option value="" disabled selected>-- Sélectionnez un jour --</option>
+                                <option value="Lundi">Lundi</option>
+                                <option value="Mardi">Mardi</option>
+                                <option value="Mercredi">Mercredi</option>
+                                <option value="Jeudi">Jeudi</option>
+                                <option value="Vendredi">Vendredi</option>
+                                <option value="Samedi">Samedi</option>
+                                <option value="Dimanche">Dimanche</option>
+                            </select>
+                        </div>
+
+                        <br>
                         <!-- Bouton d'ajout -->
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Ajouter</button>

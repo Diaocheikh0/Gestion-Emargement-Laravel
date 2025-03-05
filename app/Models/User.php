@@ -46,4 +46,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relation Many-to-Many : Un professeur peut avoir plusieurs cours.
+     */
+    public function cours()
+    {
+        return $this->belongsToMany(Cours::class, 'cours_professeurs', 'prof_id', 'cours_id');
+    }
 }

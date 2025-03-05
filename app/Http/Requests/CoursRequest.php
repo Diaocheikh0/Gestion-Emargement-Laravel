@@ -26,7 +26,7 @@ class CoursRequest extends FormRequest
             'description' => 'required:cours,description',
             'heure_debut' => 'required:cours,heure_debut',
             'heure_fin' => 'required:cours,heure_fin',
-            'salle_id' => 'required|exists:salles,id',
+            'jour' => 'required|in:Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche',
         ];
     }
 

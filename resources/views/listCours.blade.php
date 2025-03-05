@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 
@@ -17,10 +17,9 @@
             <th>ID</th>
             <th>NOM COUR</th>
             <th>DESCRIPTION</th>
-            <th>PROFESSEUR</th>
-            <th>JOUR</th>
             <th>HORAIRE</th>
             <th>SALLE</th>
+            <th>JOUR</th>
             <th>ACTIONS</th>
         </tr>
         </thead>
@@ -30,14 +29,15 @@
                 <td class="table-secondary">{{$c->id}}</td>
                 <td>{{$c->nom}}</td>
                 <td>{{$c->description}}</td>
-                <td>{{ $c->professeur->name ?? 'Non attribué' }}</td>
-                <td>{{ $c->jour }}</td>
                 <td>{{ $c->heure_debut }} - {{ $c->heure_fin }}</td>
                 <td>{{$c->salle->libelle ?? 'Non attribuée'}}</td>
+                <td>{{$c->jour}}</td>
                 <td>
                     <div class="btn-group gap-2" role="group">
-                        <a href="{{ route('editCours', ['id' => $c->id]) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                        <form action="{{ route('deleteCours', ['id' => $c->id]) }}" method="post" class="d-inline-block">
+                        <a href="{{ route('editCours', ['id' => $c->id]) }}" class="btn btn-primary btn-sm"><i
+                                class="fas fa-edit"></i> Edit</a>
+                        <form action="{{ route('deleteCours', ['id' => $c->id]) }}" method="post"
+                              class="d-inline-block">
                             @csrf
                             @method('delete')
                             <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</button>

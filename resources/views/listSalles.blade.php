@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 
@@ -30,7 +30,8 @@
                             <a href="{{ route('editSalle', ['id' => $s->id]) }}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <form action="{{ route('deleteSalle', ['id' => $s->id]) }}" method="post" class="d-inline-block">
+                            <form action="{{ route('deleteSalle', ['id' => $s->id]) }}" method="post"
+                                  class="d-inline-block">
                                 @csrf
                                 @method('delete')
                                 <button class="btn btn-danger btn-sm">
