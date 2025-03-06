@@ -10,7 +10,7 @@
             </button>
         </div>
     @endif
-    <h2 class="text-center mb-4">Liste des Couurs</h2>
+    <h2 class="text-center mb-4">Liste des Cours</h2>
     <table class="table table-striped table-hover text-center mt-4">
         <thead>
         <tr class="table-primary">

@@ -26,7 +26,7 @@ class LoginController extends Controller
             if (Auth::user()->role == 'admin') {
                 return to_route('users.index');
             } elseif (Auth::user()->role == 'gestionnaire') {
-                return to_route('listCours');
+                return to_route('cours.index');
             } elseif (Auth::user()->role == 'professeur') {
                 return to_route('emargements.create');
             }
@@ -37,5 +37,11 @@ class LoginController extends Controller
         return redirect()->route('login')->withErrors([
             'email' => 'Email/Mot de passe invalide',
         ])->onlyInput('email');
+    }
+
+    public function logout(){
+        Auth::logout();
+
+        return view('login');
     }
 }

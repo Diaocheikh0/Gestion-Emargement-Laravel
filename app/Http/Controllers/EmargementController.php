@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cours;
 use App\Models\Emargement;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -19,11 +20,19 @@ class EmargementController extends Controller
         return view('historiqueEmargements', compact('emargements'));
     }
 
-    public function index_2( ){
-        $allemargements = Emargement::all();
+    public function index_2(Request $request)
+    {
+        $professeurs = User::where('role', 'professeur')->get();
 
-        return view('AllhistoriqueEmargements', compact('allemargements'));
+        if ($request->has('professeur_id') && $request->professeur_id != '') {
+            $allemargements = Emargement::where('professeur_id', $request->professeur_id)->get();
+        } else {
+            $allemargements = Emargement::all();
+        }
+
+        return view('AllhistoriqueEmargements', compact('allemargements', 'professeurs'));
     }
+
 
     /**
      * Show the form for creating a new resource.
