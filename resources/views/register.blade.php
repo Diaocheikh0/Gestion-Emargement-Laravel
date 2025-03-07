@@ -1,5 +1,4 @@
 @extends('layouts.appAdmin')
-
 @section('content')
 
     <div class="row justify-content-center">
@@ -12,20 +11,17 @@
                         @method($user->id ? 'put' :'post')
                         <input name="id" value="{{$user->id ? $user->id : ''}}" hidden>
 
-                        <!-- Prénom et Nom -->
                         <div class="form-group">
                             <label for="name">Prénom et Nom</label>
                             <input type="text" class="form-control" id="name" name="name" placeholder="Prénom et Nom" value="{{$user->id ? $user->name : old('name')}}" required>
                         </div>
 
-                        <!-- Email -->
                         <div class="form-group">
                             <label for="email">Adresse email</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{$user->id ? $user->email : old('email')}}" required>
                         </div>
 
                         @if(!$user->id)
-                            <!-- Mot de passe -->
                             <div class="form-group">
                                 <label for="password">Mot de passe</label>
                                 <input type="password" class="form-control" id="password" name="password"
@@ -33,7 +29,6 @@
                             </div>
                         @endif
 
-                        <!-- Rôle -->
                         <div class="form-group">
                             <label for="role">Rôle</label>
                             <select class="form-control" id="role" name="role">
@@ -44,7 +39,6 @@
                         </div>
                         <br>
 
-                        <!-- Bouton d'inscription -->
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">{{$user->id ?'Mettre à jour' : 'Inscrire'}}</button>
                         </div>

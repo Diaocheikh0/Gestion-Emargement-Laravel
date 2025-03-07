@@ -1,6 +1,12 @@
 @extends('layouts.appAdmin')
 
 @section('content')
+    @if(session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> {{ session('status') }}
+        </div>
+    @endif
+
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
@@ -11,7 +17,6 @@
                         @method($salle->id ? 'put' :'post')
                         <input name="id" value="{{$salle->id ? $salle->id : ''}}" hidden>
 
-                        <!-- Prénom et Nom -->
                         <div class="form-group">
                             <label for="name">Libellé</label>
                             <input type="text" class="form-control @error('libelle') is-invalid @enderror" id="name" name="libelle" placeholder="Libellé" value="{{$salle->id ? $salle->libelle : old('libelle')}}" required>
@@ -20,7 +25,7 @@
                             @enderror
                         </div>
                         <br>
-                        <!-- Bouton d'inscription -->
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">{{$salle->id ?'Mettre à jour' : 'Ajouter'}}</button>
                         </div>

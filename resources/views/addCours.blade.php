@@ -1,6 +1,11 @@
 @extends('layouts.appAdmin')
 
 @section('content')
+    @if(session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> {{ session('status') }}
+        </div>
+    @endif
 
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -11,7 +16,7 @@
                         @csrf
                         @method(($cour->id ? 'put' :'post'))
                         <input name="id" value="{{$cour->id ? $cour->id : ''}}" hidden>
-                        <!-- Nom du cours -->
+
                         <div class="form-group">
                             <label for="nom">Nom du cours</label>
                             <input type="text" class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom" placeholder="Nom du cours" value="{{$cour->id ? $cour->nom : old('nom')}}" required>
@@ -21,7 +26,6 @@
                         </div>
                         <br>
 
-                        <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea class="form-control" id="description" name="description" placeholder="Description du cours" required>{{ $cour->id ? $cour->description : old('description') }}</textarea>
@@ -31,7 +35,6 @@
                         </div>
                         <br>
 
-                        <!-- Heure de début -->
                         <div class="form-group">
                             <label for="heure_debut">Heure de début</label>
                             <input type="time" class="form-control" id="heure_debut" name="heure_debut" value="{{$cour->id ? $cour->heure_debut : old('heure_debut')}}" required>
@@ -41,7 +44,6 @@
                         </div>
                         <br>
 
-                        <!-- Heure de fin -->
                         <div class="form-group">
                             <label for="heure_fin">Heure de fin</label>
                             <input type="time" class="form-control" id="heure_fin" name="heure_fin" value="{{$cour->id ? $cour->heure_fin : old('heure_fin')}}" required>
@@ -51,7 +53,6 @@
                         </div>
                         <br>
 
-                        <!-- Salle -->
                         <div class="form-group">
                             <label for="salle_id">Salle</label>
                             <select class="form-control" id="salle_id" name="salle_id" required>
@@ -78,9 +79,8 @@
                                 <option value="Dimanche" {{ ($cour->id && $cour->jour == 'Dimanche') || old('jour') == 'Dimanche' ? 'selected' : '' }}>Dimanche</option>
                             </select>
                         </div>
-
                         <br>
-                        <!-- Bouton d'ajout -->
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">{{$cour->id ?'Mettre à jour' : 'Ajouter'}}</button>
                         </div>

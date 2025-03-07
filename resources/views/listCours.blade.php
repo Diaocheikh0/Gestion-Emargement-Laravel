@@ -5,11 +5,9 @@
     @if(session('status'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <i class="fas fa-check-circle"></i> {{ session('status') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
     @endif
+
     <h2 class="text-center mb-4">Liste des Cours</h2>
     <table class="table table-striped table-hover text-center mt-4">
         <thead>
@@ -34,13 +32,12 @@
                 <td>{{$c->jour}}</td>
                 <td>
                     <div class="btn-group gap-2" role="group">
-                        <a href="{{ route('cours.edit', [$c->id]) }}" class="btn btn-primary btn-sm"><i
-                                class="fas fa-edit"></i> Edit</a>
+                        <a href="{{ route('cours.edit', [$c->id]) }}" class="btn btn-primary btn-sm"><i class="bi bi-pencil-fill"></i></a>
                         <form action="{{ route('cours.destroy', [$c->id]) }}" method="post"
                               class="d-inline-block">
                             @csrf
                             @method('delete')
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Delete</button>
+                            <button class="btn btn-danger btn-sm"><i class="bi bi-x-octagon"></i></button>
                         </form>
                     </div>
                 </td>
@@ -48,5 +45,7 @@
         @endforeach
         </tbody>
     </table>
+
+    {{$cours->links()}}
 
 @endsection

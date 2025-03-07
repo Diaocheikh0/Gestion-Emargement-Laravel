@@ -17,7 +17,7 @@
         <tbody>
         @foreach($emargements as $e)
             <tr>
-                <td>{{ $e->created_at->format('d/m/Y') }}</td>
+                <td>{{ $e->created_at}}</td>
                 <td>{{ $e->statut }}</td>
                 <td>{{ $e->professeur->name }}</td>
                 <td>{{ $e->cours->nom }}</td>

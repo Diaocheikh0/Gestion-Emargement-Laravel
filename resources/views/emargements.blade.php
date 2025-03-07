@@ -5,9 +5,6 @@
     @if(session('status'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <i class="fas fa-check-circle"></i> {{ session('status') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
         </div>
     @endif
 
@@ -26,11 +23,8 @@
                             <strong>Heure de fin
                                 :</strong> {{ \Carbon\Carbon::parse($cours->heure_fin)->format('H:i') }}
                         </p>
-
-                        <!-- Champ caché pour l'ID du cours -->
                         <input type="hidden" name="cours_id" value="{{ $cours->id }}">
 
-                        <!-- Sélection du statut -->
                         <div class="form-group">
                             <label for="statut">Statut :</label>
                             <select name="statut" id="statut" class="form-control" required>

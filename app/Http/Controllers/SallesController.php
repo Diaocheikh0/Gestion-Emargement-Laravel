@@ -12,7 +12,7 @@ class SallesController extends Controller
      */
     public function index()
     {
-        $salles = Salle::all();
+        $salles = Salle::paginate(7);
         return view('listSalles', compact('salles'));
     }
 

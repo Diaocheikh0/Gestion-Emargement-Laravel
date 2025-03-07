@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Emargement;
 use Illuminate\Http\Request;
 
-class ListUsersController extends Controller
+class GraphiqueBarreController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::paginate(7);
-        return view('listUsers', compact('users'));
+        $data = Emargement::selectRaw('professeur_id, COUNT(*) as total')
+            ->groupBy('professeur_id')
+            ->with('professeur')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'professeur' => $item->professeur->name,
+                    'total' => $item->total
+                ];
+            });
+
+        return view('graphiques.graphiqueBarres', compact('data'));
     }
 
     /**

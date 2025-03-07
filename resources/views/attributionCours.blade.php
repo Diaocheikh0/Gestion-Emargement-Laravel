@@ -6,7 +6,9 @@
             <h2 class="text-center">Attribution des Cours aux Professeurs</h2>
         </div>
         @if(session('status'))
-            <div class="alert alert-success">{{ session('status') }}</div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> {{ session('status') }}
+            </div>
         @endif
 
         @if($errors->any())
@@ -62,7 +64,7 @@
                         <td>{{ $p->name }}</td>
                         <td>
                             <form
-                                action="{{ route('cours-professeurs.destroy', ['cours_id' => $c->id, 'prof_id' => $p->id]) }}"
+                                action="{{ route('destroy', ['cours_id' => $c->id, 'prof_id' => $p->id]) }}"
                                 method="POST">
                                 @csrf
                                 @method('DELETE')

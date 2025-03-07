@@ -6,6 +6,7 @@ use App\Exports\EmargementsExport;
 use App\Models\Emargement;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ExportEmargementsController extends Controller
@@ -18,90 +19,28 @@ class ExportEmargementsController extends Controller
         return view('ExportEmargements');
     }
 
-    /*public function export(Request $request)
-    {
-        $type = $request->input('export_type');
-
-        $professeurId = $request->input('professeur_id');
-
-        if ($type == 'excel') {
-            return Excel::download(new EmargementsExport($professeurId), 'Emargements.xlsx');
-        }
-
-        return redirect()->back()->with('error', 'Veuillez choisir un format d\'exportation.');
-    }*/
-
     public function export(Request $request)
     {
-        $type = $request->input('export_type');
-        $professeurId = $request->input('professeur_id');
+        $professeur_id = $request->input('professeur_id');
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+        $export_type = $request->input('export_type');
 
-        if ($type == 'excel') {
-            return Excel::download(new EmargementsExport($professeurId), 'Emargements.xlsx');
-        }
+        if ($export_type === 'excel') {
+            return Excel::download(new EmargementsExport($professeur_id, $start_date, $end_date), 'emargements.xlsx');
+        } elseif ($export_type === 'pdf') {
 
-        if ($type == 'pdf') {
-            $emargements = Emargement::with(['professeur', 'cours'])
-                ->where('professeur_id', $professeurId)
-                ->get();
+        $start_date = Carbon::parse($start_date)->startOfDay();
+        $end_date = Carbon::parse($end_date)->endOfDay();
+        $emargements = Emargement::where('professeur_id', $professeur_id)
+            ->whereBetween('created_at', [$start_date, $end_date])
+            ->get();
 
-            return Pdf::loadView('export_formatPdf', ['emargements' => $emargements])
-                ->download('Emargements.pdf');
-        }
+        ("Emargements count for PDF export: " . $emargements->count());
 
-        return redirect()->back()->with('error', 'Veuillez choisir un format d\'exportation.');
+        $pdf = PDF::loadView('export_formatPdf', compact('emargements'));
+        return $pdf->download('emargements.pdf');
     }
-
-    public function showExportForm()
-    {
-        return view('exportEmargements');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return back()->with('error', 'Format d\'exportation invalide.');
     }
 }

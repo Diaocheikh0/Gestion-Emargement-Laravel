@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>ISI</title>
+    <title>GROUPE ISI</title>
 
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -145,7 +145,7 @@
                         <!--begin::Menu Footer-->
                         <li class="user-footer">
                             <form action="{{route('logout')}}" method="post">
-                            @method('delete')
+                            @method('post')
                             @csrf
                             <button  class="btn btn-default btn-flat float-end text-center">Se déconnecter</button>
                             </form>
@@ -163,22 +163,12 @@
     <!--begin::Sidebar-->
     <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
         <!--begin::Sidebar Brand-->
-        <div class="sidebar-brand">
-            <!--begin::Brand Link-->
-            <a href="../index.html" class="brand-link">
-                <!--begin::Brand Image-->
-                <img
-                    src="/vendor/adminlte/dist/assets/img/isi.png"
-                    alt="ISI"
-                    class="brand-image opacity-75 shadow"
-                />
-                <!--end::Brand Image-->
-                <!--begin::Brand Text-->
-                <span class="brand-text fw-light"></span>
-                <!--end::Brand Text-->
-            </a>
-            <!--end::Brand Link-->
+        <div class="sidebar-brand text-center py-3" style="background-color: #003366;">
+            <span class="brand-text fw-bold" style="color: white; font-size: 28px; font-family: 'Georgia', serif;">
+                GROUPE <span style="font-weight: bold;">ISI</span>
+            </span>
         </div>
+
         <!--end::Sidebar Brand-->
         <!--begin::Sidebar Wrapper-->
         <div class="sidebar-wrapper">
@@ -315,81 +305,32 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon bi bi-file-earmark-text"></i>
                             <p>
-                                Rapports et Statistiques
+                                Statistiques
                                 <i class="nav-arrow bi bi-chevron-right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="../UI/general.html" class="nav-link">
+                                <a href="{{route('graphiqueBarres.index')}}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>General</p>
+                                    <p>Total Présences</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../UI/icons.html" class="nav-link">
+                                <a href="{{route('graphiqueLigne.index')}}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Icons</p>
+                                    <p>Suivi Présences</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../UI/timeline.html" class="nav-link">
+                                <a href="{{route('graphiqueDoughnut.index')}}" class="nav-link">
                                     <i class="nav-icon bi bi-circle"></i>
-                                    <p>Timeline</p>
+                                    <p>Taux Présence</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
                         @endif
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                            <p>
-                                Auth
-                                <i class="nav-arrow bi bi-chevron-right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                                    <p>
-                                        Version 1
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="../examples/login.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Login</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="../examples/register.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Register</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="../examples/login-v2.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Login</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="../examples/register-v2.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Register</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                        </ul>
-                    </li>
                 </ul>
                 <!--end::Sidebar Menu-->
             </nav>
@@ -400,27 +341,11 @@
     <!--begin::App Main-->
     <main class="app-main">
         <!--begin::App Content Header-->
-        <div class="app-content-header">
-            <!--begin::Container-->
-            <div class="container-fluid">
-                <!--begin::Row-->
-                <div class="row">
-                    <div class="col-sm-6"><h3 class="mb-0">GROUPE ISI</h3></div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-end">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Unfixed Layout</li>
-                        </ol>
-                    </div>
-                </div>
-                <!--end::Row-->
-            </div>
-            <!--end::Container-->
-        </div>
         <!--end::App Content Header-->
         <!--begin::App Content-->
         <div class="app-content">
             @yield('content')
+            @stack('scripts')
         </div>
         <!--end::App Content-->
     </main>
@@ -428,12 +353,12 @@
     <!--begin::Footer-->
     <footer class="app-footer">
         <!--begin::To the end-->
-        <div class="float-end d-none d-sm-inline">Anything you want</div>
+        <!--<div class="float-end d-none d-sm-inline">Anything you want</div>-->
         <!--end::To the end-->
         <!--begin::Copyright-->
         <strong>
             Copyright &copy; 2024-2025&nbsp;
-            <a href="https://adminlte.io" class="text-decoration-none">DIAO Cheikh D</a>.
+            <a href="https://adminlte.io" class="text-decoration-none">BY DIAO Cheikh D</a>.
         </strong>
         All rights reserved.
         <!--end::Copyright-->
@@ -481,7 +406,7 @@
         });
     });
 </script>
-
+</script>
 <!--end::OverlayScrollbars Configure-->
 <!--end::Script-->
 </body>

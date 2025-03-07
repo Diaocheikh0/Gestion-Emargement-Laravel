@@ -24,15 +24,28 @@ class EmargementController extends Controller
     {
         $professeurs = User::where('role', 'professeur')->get();
 
-        if ($request->has('professeur_id') && $request->professeur_id != '') {
-            $allemargements = Emargement::where('professeur_id', $request->professeur_id)->get();
-        } else {
-            $allemargements = Emargement::all();
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $professeurId = $request->input('professeur_id');
+
+        $query = Emargement::query();
+
+        if ($professeurId) {
+            $query->where('professeur_id', $professeurId);
         }
+
+        if ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if ($endDate) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        $allemargements = $query->get();
 
         return view('AllhistoriqueEmargements', compact('allemargements', 'professeurs'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -59,7 +72,6 @@ class EmargementController extends Controller
             'statut' => 'required|in:Présent,Absent',
         ]);
 
-        // Création de l'émargement
         Emargement::create([
             'date' => today(),
             'statut' => $request->statut,

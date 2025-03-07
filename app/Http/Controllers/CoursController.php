@@ -14,7 +14,7 @@ class CoursController extends Controller
      */
     public function index()
     {
-        $cours = Cours::with('salle')->get();
+        $cours = Cours::with('salle')->paginate(7);
         return view('listCours', compact('cours'));
     }
 
