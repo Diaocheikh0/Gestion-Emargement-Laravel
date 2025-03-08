@@ -1,66 +1,54 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Gestion des Présences des Professeurs avec Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ce projet est une application web de gestion des présences des professeurs utilisant Laravel. Elle permet de gérer les utilisateurs, les cours, les présences, et de générer des rapports statistiques. Elle facilite l'administration et le suivi des cours en temps réel, tout en offrant des outils d'analyse avancée pour optimiser la gestion.
 
-## About Laravel
+Fonctionnalités principales
+1. Gestion des utilisateurs : Administrateurs, professeurs, et gestionnaires.
+2. Administration des cours : Ajout, modification, et suppression des cours. Attribution des cours aux professeurs.
+3. Enregistrement des présences (émargement manuel) : Les professeurs peuvent enregistrer leurs présences et consulter l'historique des émargements.
+4. Génération de rapports détaillés : Présences par professeur, par cours, etc.
+5. Envoi de notifications par e-mail : Envoi automatique d'e-mails aux professeurs après l'ajout de nouveaux cours.
+6. Exportation des données : Exportation des émargements aux formats PDF et Excel à une période donnée.
+7. Analyse statistique des présences : Nombre d'émargements par professeur, évolution des présences, et taux de présence par cours.
+8. Gestion des conflits d'horaires : Gestion des conflits lors de l'attribution des cours aux professeurs.
+9. Association des salles aux cours : Chaque cours peut être associé à une salle spécifique.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Diagramme de Classe :
+Le diagramme de classe représente les entités et leurs relations :
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+. Users (id, nom, prénom, email, password, rôle)
+. Salle (id, libelle)
+. Cours (id, nom, description, heure_debut, heure_fin, salle_id)
+. Émargements (id, date, statut, professeur_id, cours_id)
+. Notifications (id, message, destinataire_id, date_envoi)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Fonctionnalités détaillées :
 
-## Learning Laravel
+1. Gestion des utilisateurs
+   Création, modification et suppression des comptes utilisateurs.
+2. Gestion des cours
+   Ajout, modification et suppression des cours.
+   Attribution des cours aux professeurs et aux créneaux horaires.
+3. Gestion des émargements
+   Enregistrement des présences avec validation manuelle.
+   Consultation de l'historique des émargements.
+   Gestion des conflits d'horaire lors de l'attribution des cours à un professeur.
+4. Génération de rapports et statistiques
+   Exportation des émargements aux formats PDF et Excel.
+   Statistiques détaillées sur les présences :
+   Nombre d'émargements par professeur (Graphique en barres).
+   Évolution des émargements (Graphique en ligne).
+   Taux de présence par cours (Graphique en doughnut).
+5. Notifications
+   Envoi automatique d'un e-mail aux professeurs après l'ajout d'un cours.
+   Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+   
+    Technologies utilisées :
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Laravel : Framework PHP pour le développement de l'application web.
+PostgresSQL : Base de données relationnelle.
+Bootstrap : Framework CSS pour le design.
+Chart.js : Librairie JavaScript pour les graphiques.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
