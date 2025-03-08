@@ -16,7 +16,7 @@ class CoursProfesseurController extends Controller
         $cours = Cours::all();
         $professeurs = User::where('role', 'professeur')->get();
 
-        return view('attributionCours', compact('cours', 'professeurs'));
+        return view('cours.attributionCours', compact('cours', 'professeurs'));
     }
 
     public function store(Request $request)

@@ -2,18 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Emargement;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ListUsersController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::paginate(7);
-        return view('users.listUsers', compact('users'));
+        $totalUsers = User::count();
+        $totalProfesseurs = User::where('role', 'professeur')->count();
+        $totalGestionnaires = User::where('role', 'gestionnaire')->count();
+        $totalEmargements = Emargement::all()->count();
+        $totalEmargementsDay = Emargement::whereDate('created_at', Carbon::today())->count();
+        $totalEmargementsWeek = Emargement::whereBetween('created_at', [
+            Carbon::now()->startOfWeek(),
+            Carbon::now()->endOfWeek()
+        ])->count();
+        $totalEmargementsMonth = Emargement::whereMonth('created_at', Carbon::now()->month)
+            ->whereYear('created_at', Carbon::now()->year)
+            ->count();
+
+        return view('dashboard', compact('totalUsers', 'totalProfesseurs', 'totalGestionnaires', 'totalEmargements', 'totalEmargementsDay', 'totalEmargementsWeek', 'totalEmargementsMonth'));
     }
 
     /**

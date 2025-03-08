@@ -13,7 +13,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        return view('login');
+        return view('users.login');
     }
 
     public function dologin(LoginRequest $request)
@@ -24,14 +24,14 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role == 'admin') {
-                return to_route('users.index');
+                return to_route('dashboard.index');
             } elseif (Auth::user()->role == 'gestionnaire') {
-                return to_route('cours.index');
+                return to_route('dashboard.index');
             } elseif (Auth::user()->role == 'professeur') {
                 return to_route('emargements.create');
             }
 
-            return to_route('users.index');
+            return to_route('dashboard.index');
         }
 
         return redirect()->route('login')->withErrors([
@@ -42,6 +42,6 @@ class LoginController extends Controller
     public function logout(){
         Auth::logout();
 
-        return view('login');
+        return view('users.login');
     }
 }

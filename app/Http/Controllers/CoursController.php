@@ -15,7 +15,7 @@ class CoursController extends Controller
     public function index()
     {
         $cours = Cours::with('salle')->paginate(7);
-        return view('listCours', compact('cours'));
+        return view('cours.listCours', compact('cours'));
     }
 
     /**
@@ -25,7 +25,7 @@ class CoursController extends Controller
     {
         $cour = new Cours();
         $salles = Salle::all();
-        return view('addCours', compact('salles', 'cour'));
+        return view('cours.addCours', compact('salles', 'cour'));
     }
 
     /**
@@ -83,7 +83,7 @@ class CoursController extends Controller
         $cour = Cours::findOrFail($id);
         $salles = Salle::all();
 
-        return view('addCours', compact('cour', 'salles'));
+        return view('cours.addCours', compact('cour', 'salles'));
     }
 
     /**

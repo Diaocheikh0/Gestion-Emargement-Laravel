@@ -17,7 +17,7 @@ class EmargementController extends Controller
     {
         $emargements = Emargement::where('professeur_id', auth()->id())->get();
 
-        return view('historiqueEmargements', compact('emargements'));
+        return view('emargements.historiqueEmargements', compact('emargements'));
     }
 
     public function index_2(Request $request)
@@ -44,7 +44,7 @@ class EmargementController extends Controller
 
         $allemargements = $query->get();
 
-        return view('AllhistoriqueEmargements', compact('allemargements', 'professeurs'));
+        return view('emargements.AllhistoriqueEmargements', compact('allemargements', 'professeurs'));
     }
 
     /**
@@ -59,7 +59,7 @@ class EmargementController extends Controller
         })->where('cours.jour', ucfirst($jourActuel))
             ->get();
 
-        return view('emargements', compact('coursDuJour'));
+        return view('emargements.emargements', compact('coursDuJour'));
     }
 
     /**
@@ -79,7 +79,7 @@ class EmargementController extends Controller
             'cours_id' => $request->cours_id
         ]);
 
-        return back()->with('success', 'Émargement enregistré.');
+        return to_route('emargements.index')->with('status', 'Émargement enregistré.');
     }
 
     /**

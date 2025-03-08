@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\CoursProfesseurController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExportEmargementsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\LoginController::class, 'index'])->name('login');
 Route::post('/login', [\App\Http\Controllers\LoginController::class, 'doLogin']);
 Route::post('/logout', [\App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
+
+Route::resource('dashboard', DashboardController::class);
 
 Route::resource('users', \App\Http\Controllers\ListUsersController::class)->middleware('auth');
 

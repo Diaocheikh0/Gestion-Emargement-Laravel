@@ -74,13 +74,13 @@
                 </li>
                 <li class="nav-item d-none d-md-block">
                     @if(Auth::user()->role == 'admin')
-                        <a href="{{ route('users.index') }}" class="nav-link">Home</a>
+                        <a href="{{ route('dashboard.index') }}" class="nav-link">Home</a>
                     @elseif(Auth::user()->role == 'gestionnaire')
-                        <a href="{{ route('cours.index') }}" class="nav-link">Home</a>
+                        <a href="{{ route('dashboard.index') }}" class="nav-link">Home</a>
                     @elseif(Auth::user()->role == 'professeur')
                         <a href="{{ route('emargements.create') }}" class="nav-link">Home</a>
                     @else
-                        <a href="{{ route('users.index') }}" class="nav-link">Home</a>
+                        <a href="{{ route('dashboard.index') }}" class="nav-link">Home</a>
                     @endif
                 </li>
             </ul>

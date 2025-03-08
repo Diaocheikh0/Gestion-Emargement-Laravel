@@ -16,7 +16,7 @@ class ExportEmargementsController extends Controller
      */
     public function index()
     {
-        return view('ExportEmargements');
+        //
     }
 
     public function export(Request $request)
@@ -38,7 +38,7 @@ class ExportEmargementsController extends Controller
 
         ("Emargements count for PDF export: " . $emargements->count());
 
-        $pdf = PDF::loadView('export_formatPdf', compact('emargements'));
+        $pdf = PDF::loadView('emargements.export_formatPdf', compact('emargements'));
         return $pdf->download('emargements.pdf');
     }
         return back()->with('error', 'Format d\'exportation invalide.');

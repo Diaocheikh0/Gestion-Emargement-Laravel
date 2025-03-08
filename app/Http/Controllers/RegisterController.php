@@ -22,7 +22,7 @@ class RegisterController extends Controller
     public function create()
     {
         $user = new User();
-        return view('register', compact('user'));
+        return view('users.register', compact('user'));
     }
 
     /**
@@ -62,7 +62,7 @@ class RegisterController extends Controller
     {
         $user = User::find($id);
 
-        return view('register', compact('user'));
+        return view('users.register', compact('user'));
     }
 
     /**

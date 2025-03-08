@@ -13,7 +13,7 @@ class SallesController extends Controller
     public function index()
     {
         $salles = Salle::paginate(7);
-        return view('listSalles', compact('salles'));
+        return view('salles.listSalles', compact('salles'));
     }
 
     /**
@@ -23,7 +23,7 @@ class SallesController extends Controller
     {
         $salle = new Salle();
 
-        return view('addSalle', compact('salle'));
+        return view('salles.addSalle', compact('salle'));
     }
 
     /**
@@ -57,7 +57,7 @@ class SallesController extends Controller
     {
         $salle = Salle::find($id);
 
-        return view('addSalle', compact('salle'));
+        return view('salles.addSalle', compact('salle'));
     }
 
     /**
