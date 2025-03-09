@@ -142,15 +142,38 @@
                         <!--end::User Image-->
                         <!--begin::Menu Body-->
                         <!--end::Menu Body-->
-                        <!--begin::Menu Footer-->
+                        <!--Déconnexion-->
                         <li class="user-footer">
-                            <form action="{{route('logout')}}" method="post">
-                            @method('post')
-                            @csrf
-                            <button  class="btn btn-default btn-flat float-end text-center">Se déconnecter</button>
+                            <form action="{{ route('logout') }}" method="post" onsubmit="confirmLogout(event);">
+                                @method('post')
+                                @csrf
+                                <button type="submit" class="btn btn-default btn-flat float-end text-center">
+                                    <i class="bi bi-power"></i> Déconnexion
+                                </button>
                             </form>
                         </li>
-                        <!--end::Menu Footer-->
+                        <script>
+                            function confirmLogout(event) {
+                                event.preventDefault();
+
+                                Swal.fire({
+                                    title: 'Êtes-vous sûr ?',
+                                    text: "Vous allez être déconnecté.",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#d33',
+                                    cancelButtonColor: '#3085d6',
+                                    confirmButtonText: 'Oui, me déconnecter',
+                                    cancelButtonText: 'Annuler'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        event.target.submit();
+                                    }
+                                });
+                            }
+                        </script>
+                        <!--Fin Déconnexion-->
+
                     </ul>
                 </li>
                 <!--end::User Menu Dropdown-->
@@ -358,7 +381,7 @@
         <!--begin::Copyright-->
         <strong>
             Copyright &copy; 2024-2025&nbsp;
-            <a href="https://adminlte.io" class="text-decoration-none">BY DIAO Cheikh D</a>.
+            <a href="#" class="text-decoration-none">BY DIAO Cheikh D</a>.
         </strong>
         All rights reserved.
         <!--end::Copyright-->
@@ -407,6 +430,8 @@
     });
 </script>
 </script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--end::OverlayScrollbars Configure-->
 <!--end::Script-->
 </body>
