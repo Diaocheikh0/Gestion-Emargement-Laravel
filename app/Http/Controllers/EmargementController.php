@@ -72,6 +72,19 @@ class EmargementController extends Controller
             'statut' => 'required|in:Présent,Absent',
         ]);
 
+        $date = today();
+
+        // Vérification si le professeur a déjà émargé ce cours le même jour
+        $emargementJourExiste = Emargement::whereDate('date', $date)
+        ->where('cours_id', $request->cours_id)
+        ->where('professeur_id', auth()->id())
+        ->exists();
+
+        if ($emargementJourExiste) {
+            return to_route('emargements.index')->with('status', '❌Vous avez déjà émargé ce cours aujourd\'hui.');
+        }
+
+
         Emargement::create([
             'date' => today(),
             'statut' => $request->statut,
