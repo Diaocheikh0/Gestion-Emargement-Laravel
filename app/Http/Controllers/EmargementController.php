@@ -81,7 +81,7 @@ class EmargementController extends Controller
         ->exists();
 
         if ($emargementJourExiste) {
-            return to_route('emargements.index')->with('status', '❌Vous avez déjà émargé ce cours aujourd\'hui.');
+            return redirect()->back()->withErrors(['error' => '❌Vous avez déjà émargé ce cours aujourd\'hui.']);
         }
 
 

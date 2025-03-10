@@ -52,7 +52,7 @@ class CoursController extends Controller
             ->exists();
 
         if ($conflit) {
-            return to_route('cours.index')->with('status', '❌Conflit d’horaire détecté pour cette salle et ce jour.');
+            return redirect()->back()->withErrors(['error' => '❌Conflit d’horaire détecté pour cette salle et ce jour.']);
         }
 
         Cours::create([
@@ -112,7 +112,7 @@ class CoursController extends Controller
             ->exists();
 
         if ($conflitSalle) {
-            return to_route('cours.index')->with('status', '❌Conflit d’horaire : cette salle est déjà occupée à cette heure et ce jour.');
+            return redirect()->back()->withErrors(['error' => '❌Conflit d’horaire : cette salle est déjà occupée à cette heure et ce jour.']);
         }
 
         $cours->update([
@@ -136,7 +136,8 @@ class CoursController extends Controller
 
         // Vérifier si le cours est lié à des émargements
         if ($cour->emargements()->exists()) {
-            return to_route('cours.index')->with('status', '❌Impossible de supprimer ce cours, des présences y sont associées.');
+            return redirect()->back()->withErrors(['error' => '❌Impossible de supprimer ce cours, des présences y sont associées.']);
+
         }
 
         $cour->delete();

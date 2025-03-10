@@ -8,6 +8,15 @@
         </div>
     @endif
 
+    @if($errors->any())
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="container mt-5">
         <h2 class="text-center mb-4">Émargement du jour</h2>
 

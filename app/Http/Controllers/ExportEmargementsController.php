@@ -41,6 +41,6 @@ class ExportEmargementsController extends Controller
         $pdf = PDF::loadView('emargements.export_formatPdf', compact('emargements'));
         return $pdf->download('emargements.pdf');
     }
-        return back()->with('error', 'Format d\'exportation invalide.');
+        return back()->with('error', '❌Format d\'exportation invalide.');
     }
 }

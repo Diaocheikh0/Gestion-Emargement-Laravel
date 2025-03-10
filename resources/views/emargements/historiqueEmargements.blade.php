@@ -7,6 +7,16 @@
             <i class="fas fa-check-circle"></i> {{ session('status') }}
         </div>
     @endif
+
+    @if($errors->any())
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <h2 class="text-center mb-4">Historique de vos émargements</h2>
     <table class="table table-striped table-hover text-center mt-4">
         <thead>

@@ -34,6 +34,13 @@ class SallesController extends Controller
         $request->validate([
             'libelle' => 'required',
         ]);
+        // Vérification si le nom de cette salle existe déjà
+        $conflit = Salle::where('libelle', $request->libelle)
+            ->exists();
+
+        if ($conflit) {
+            return redirect()->back()->withErrors(['error' => '❌le nom de cette salle existe déja !']);
+        }
 
         $salle = new Salle();
         $salle->libelle = $request->input('libelle');
@@ -68,6 +75,14 @@ class SallesController extends Controller
         $request->validate([
             'libelle' => 'required',
         ]);
+
+        // Vérification si le nom de cette salle existe déjà
+        $conflit = Salle::where('libelle', $request->libelle)
+            ->exists();
+
+        if ($conflit) {
+            return redirect()->back()->withErrors(['error' => '❌le nom de cette salle existe déja !']);
+        }
 
         $salle = Salle::find($id);
         $salle->libelle = $request->input('libelle');

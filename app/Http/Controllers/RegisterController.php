@@ -37,6 +37,14 @@ class RegisterController extends Controller
             'role' => 'required',
         ]);
 
+        //Vérifier si l'email existe déjà
+        $emailExiste = User::where('email', $request->email)
+        ->exists();
+
+        if($emailExiste){
+            return redirect()->back()->withErrors(['error' => '❌Cet email existe déjà !']);
+        }
+
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -75,6 +83,14 @@ class RegisterController extends Controller
             'email' => 'required',
             'role' => 'required',
         ]);
+
+        //Vérifier si l'email existe déjà
+        $emailExiste = User::where('email', $request->email)
+            ->exists();
+
+        if($emailExiste){
+            return redirect()->back()->withErrors(['error' => '❌Cet email existe déjà !']);
+        }
 
         $user = User::find($id);
         $user->name = $request->input('name');
