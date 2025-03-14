@@ -25,10 +25,10 @@ class AttributionCoursMail extends Mailable
      * @param  CoursProfesseur  $professeur
      * @return void
      */
-    public function __construct(Cours $cours, CoursProfesseur $professeur)
+    public function __construct(Cours $cours, CoursProfesseur $coursProfesseur)
     {
         $this->cours = $cours;
-        $this->professeur = $professeur;
+        $this->professeur = $coursProfesseur->professeur;
     }
 
     /**

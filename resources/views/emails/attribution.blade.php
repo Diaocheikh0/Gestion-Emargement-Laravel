@@ -6,25 +6,29 @@
     <title>Attribution de Cours</title>
 </head>
 <body>
-<h1>Bonjour {{ $professeur->name }},</h1>
+<h1>Bonjour {{ $professeur ? $professeur->name : 'Professeur' }},</h1>
 <p>Vous avez été attribué au cours suivant :</p>
 
 <table>
     <tr>
-        <th>Cours</th>
+        <th>Cours :</th>
         <td>{{ $cours->nom }}</td>
     </tr>
     <tr>
-        <th>Jour</th>
+        <th>Jour :</th>
         <td>{{ $cours->jour }}</td>
     </tr>
     <tr>
-        <th>Heure de début</th>
+        <th>Heure de début :</th>
         <td>{{ $cours->heure_debut }}</td>
     </tr>
     <tr>
-        <th>Heure de fin</th>
+        <th>Heure de fin :</th>
         <td>{{ $cours->heure_fin }}</td>
+    </tr>
+    <tr>
+        <th>Salle :</th>
+        <td>{{ $cours->salle->libelle  }}</td>
     </tr>
 </table>
 
